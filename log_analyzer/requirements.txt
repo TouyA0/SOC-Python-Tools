@@ -1,0 +1,14 @@
+# CORE DEPENDENCIES
+python-dateutil>=2.8.2  # Advanced datetime handling
+tzlocal>=4.2            # Timezone support
+pyyaml>=6.0             # Configuration files
+
+# SECURITY EXTENSIONS
+abuseipdb>=2.0.0        # AbuseIPDB integration (threat intelligence)
+requests>=2.31.0        # Required for API calls (pinned for security)
+
+# DEVELOPMENT (optional)
+pytest>=7.4.0           # Testing framework
+black>=23.10.0          # Code formatting
+mypy>=1.5.0             # Static type checking
+bandit>=1.7.5           # Security linter
