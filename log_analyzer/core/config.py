@@ -59,7 +59,9 @@ DEFAULT_SAMPLE_LOG = PROJECT_ROOT / 'data' / 'sample.log' # EN: Test log file | 
 # ======================================================================
 
 MIN_ANALYSIS_INTERVAL = 5  # EN: Seconds between analyses (watch mode) | FR: Secondes entre analyses (mode surveillance)
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / 'outputs' # EN: Default report location | FR: Emplacement par défaut des rapports
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / 'log_analyzer' /'outputs' # EN: Default report location | FR: Emplacement par défaut des rapports
+
+DEFAULT_OUTPUT_DIR.mkdir(parents=True, exist_ok=True) # EN: Ensure output directory exists | FR: Vérifier l'existence du dossier de sortie
 
 # ======================================================================
 # COLOR CONFIGURATION / CONFIGURATION DES COULEURS
