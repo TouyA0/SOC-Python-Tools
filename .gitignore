@@ -42,6 +42,5 @@ credentials.*
 .idea/
 *.swp
 
-### Exceptions (fichiers à garder) ###
-!log-analyzer/*.log          # Garde tous les logs d'exemple
-!phishing-email-scanner/*.eml  # Garde tous les emails d'exemple
+# Ignorer le dossier des rapports générés
+/log_analyzer/outputs/
