@@ -1,11 +1,11 @@
-"""
-SOC Log Analyzer Package
+"""SOC Log Analyzer Package"""
 
-Exposes:
-- parse_log_file(): Analyze log files for suspicious activity
-- generate_report(): Create CSV reports from analysis results
-"""
+# EN: Package metadata | FR: Métadonnées du package
+__version__ = "2.0"
+__author__ = "TouyA0"
 
-from .log_analyzer import parse_log_file, generate_report
-
-__all__ = ['parse_log_file', 'generate_report']
+import os
+if os.name == 'nt': # EN: Check if Windows | FR: Vérifie si Windows
+    from .core.config import Colors
+    # EN: Initialize color support for Windows terminals | FR: Initialise le support couleur pour les terminaux Windows
+    Colors.init_windows_support() 
