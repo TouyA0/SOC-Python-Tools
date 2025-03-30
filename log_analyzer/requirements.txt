@@ -1,14 +1,18 @@
-# CORE DEPENDENCIES
-python-dateutil>=2.8.2  # Advanced datetime handling
-tzlocal>=4.2            # Timezone support
-pyyaml>=6.0             # Configuration files
+# =================================================================
+# CORE DEPENDENCIES / DÉPENDANCES PRINCIPALES
+# =================================================================
+python-dateutil>=2.8.2     # EN: Date/time parsing utilities | FR: Utilitaires de manipulation de dates
+Jinja2>=3.1.2              # EN: HTML template engine | FR: Moteur de templates HTML
+watchdog>=3.0.0            # EN: File system monitoring | FR: Surveillance du système de fichiers
+colorama>=0.4.6            # EN: Cross-platform terminal colors | FR: Couleurs terminal multiplateforme
 
-# SECURITY EXTENSIONS
-abuseipdb>=2.0.0        # AbuseIPDB integration (threat intelligence)
-requests>=2.31.0        # Required for API calls (pinned for security)
+# =================================================================
+# COMPATIBILITY / COMPATIBILITÉ
+# =================================================================
+ipaddress>=1.0.23; python_version < "3.3"  # EN: Backport of Python 3.3+ ipaddress | FR: Rétroportage du module ipaddress
+setuptools>=68.0.0         # EN: Package building and dependencies | FR: Construction de paquets et gestion des dépendances
 
-# DEVELOPMENT (optional)
-pytest>=7.4.0           # Testing framework
-black>=23.10.0          # Code formatting
-mypy>=1.5.0             # Static type checking
-bandit>=1.7.5           # Security linter
+# =================================================================
+# LEGACY SUPPORT / SUPPORT ANCIENNES VERSIONS
+# =================================================================
+argparse>=1.4.0; python_version < "3.2"    # EN: CLI parsing for Python <3.2 | FR: Analyse d'arguments pour Python <3.2
