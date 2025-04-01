@@ -16,6 +16,15 @@
 | `DDoS Attacks`         | Abnormal request rate                | 500+ requests/minute from single IP      |
 | `Suspicious Behavior`  | Non-whitelisted external activity    | External IP accessing admin endpoints    |
 
+### 🌍 IP Geolocation & Mapping
+| Feature               | Description                                  | Data Sources         |
+|-----------------------|----------------------------------------------|----------------------|
+| `IP Geolocation`      | City/Country detection via ipinfo.io         | API integration      |
+| `Interactive Maps`    | Leaflet.js maps with request coordinates     | OpenStreetMap tiles  |
+| `Timezone Analysis`   | Local time conversion for suspicious activity| pytz timezone DB     |
+| `Internal IP Handling`| Automatic detection of RFC1918 addresses     | IP classification    |
+| `Request Timeline`    | First/Last request timestamps for all IPs    | Log analysis         |
+
 ## 🛠 Installation
 
 1. Clone the repository:
@@ -91,6 +100,22 @@ THREAT_CONFIG = {
     # ... other rules ...
 }
 ```
+
+### 4. Geolocation Setup
+1. Create a free account on [ipinfo.io](https://ipinfo.io/)
+2. Get an API token
+3. Define it in your environment :
+
+Windows (Powershell) :
+```bash
+$env:IPINFO_TOKEN = "votre_token_ici"
+```
+Linux/MacOs :
+```bash
+echo 'export IPINFO_TOKEN="votre_token_ici"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## 📈 Report System
 
 ### Output Structure
@@ -108,6 +133,7 @@ IP Address,Threat Score,Total Requests,First Seen,Last Seen...
 
 ### HTML Report Sample
 ![Threat Analysis Dashboard](docs/dashboard-screenshot.png)
+![Geolocation Screenshot](docs/dashboard-geolocation-screenshot.png)
 *Interactive HTML dashboard with drill-down capabilities*
 
 ## 🔍 Real-World Scenarios
@@ -151,6 +177,10 @@ log-analyzer "alb_logs/*.log" \
 | **Empty CSV reports**         | No suspicious activity         | Check detection rules in `config.py` |
 | **Dashboard not rendering**   | JavaScript blocked             | Open in modern browser (Chrome/Firefox) |
 | **Port scan false alerts**    | Legitimate API traffic         | Adjust `unique_paths_threshold` in config |
+| **No maps in report**         | Missing Leaflet.js CDN         | Check internet connection |
+| **Empty geo data**            | IPinfo.io API limit reached    | Add free API token |
+| **Map loading errors**        | Ad-blockers active             | Disable extensions for local files |
+
 
 ## 📜 License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/TouyA0/SOC-Python-Tools/blob/main/LICENSE) file for details.
