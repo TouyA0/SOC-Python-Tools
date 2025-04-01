@@ -39,7 +39,7 @@ def load_whitelist(file_path: Optional[Path] = None) -> Set[str]:
     Returns/Retourne:
         Set[str]: EN: Set of whitelisted entries | FR: Ensemble des entrées autorisées
     """
-    file_path = file_path or PROJECT_ROOT / 'data' / 'whitelist.txt'
+    file_path = file_path or PROJECT_ROOT / 'log_analyzer' / 'data' / 'whitelist.txt'
     whitelist = set()
     
     try:

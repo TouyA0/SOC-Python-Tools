@@ -49,9 +49,27 @@ def create_parser() -> argparse.ArgumentParser:
     EN: Create CLI argument parser with analysis options
     FR: Crée le parser d'arguments pour les options d'analyse
     """
+    header = (
+        "╔═══════════════════════════════════════════════════════════════╗\n"
+        "║                    SOC Log Analyzer Tool                      ║\n"
+        "╠═══════════════════════════════════════════════════════════════╣\n"
+        "║ Detect suspicious activities in web server logs.              ║\n"
+        "║ Real-time monitoring  |  Multi-vector detection  |  Reporting ║\n"
+        "╚═══════════════════════════════════════════════════════════════╝"
+    )
+    epilog = (
+        "Usage Examples:\n\n"
+        "  Basic analysis:\n"
+        "    log-analyzer access.log -t 100 -o report\n\n"
+        "  Real-time monitoring:\n"
+        "    log-analyzer /var/log/nginx/access.log --watch\n\n"
+        "  Forensic investigation:\n"
+        "    log-analyzer compromised.log --no-whitelist --timewindow 0.5"
+    )
+
     parser = argparse.ArgumentParser(
-        description=colorize("SOC Log Analyzer with Whitelist Support", Colors.BLUE),
-        epilog=colorize("Example: log-analyzer access.log -w whitelist.txt", Colors.GRAY),
+        description=colorize(header, Colors.BLUE),
+        epilog=colorize(epilog, Colors.CYAN),
         formatter_class=argparse.RawTextHelpFormatter
     )
 
@@ -80,7 +98,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         '-i', '--ignore-internal',
         action='store_true',
-        help='Exclude private IP addresses from analysis'
+        help="Exclude private IP addresses from analysis"
     )
     
     parser.add_argument(
@@ -107,7 +125,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         '--watch',
         action='store_true',
-        help='Enable real-time log monitoring'
+        help="Enable real-time log monitoring"
     )
     
     parser.add_argument(
@@ -124,9 +142,6 @@ def handle_watch_mode(config: dict):
     EN: Handle continuous log monitoring
     FR: Gère la surveillance continue du fichier log
     """
-    print(colorize("\n👀 Starting real-time monitoring...", Colors.BLUE))
-    print(colorize("   Press Ctrl+C to stop\n", Colors.GRAY))
-    
     # EN: Pass validated config to watch system | FR: Passe la configuration validée au système de surveillance
     watch_log_file({
         'log_path': config['log_path'],
