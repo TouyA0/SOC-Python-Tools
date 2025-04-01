@@ -1,6 +1,7 @@
 import re
+import pytz
 from datetime import datetime, timedelta
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 from collections import defaultdict
 
 from .config import THREAT_CONFIG, STATUS_SCORES
@@ -30,6 +31,7 @@ def parse_log_file(log_path, threshold=100, time_window_hours=1,
     # EN: Data structure for IP activity tracking | FR: Structure de suivi d'activité par IP
     ip_activity = defaultdict(lambda: {
         'count': 0, # EN: Total requests | FR: Requêtes totales
+        'timestamps': [], # EN: Request timestamps | FR: Horodatages des requêtes
         'status_codes': defaultdict(int), # EN: Status code frequency | FR: Fréquence codes statut
         'requests': defaultdict(int), # EN: Request path frequency | FR: Fréquence requêtes
         'first_seen': None, # EN: Initial request time | FR: Première requête
@@ -56,26 +58,26 @@ def parse_log_file(log_path, threshold=100, time_window_hours=1,
 
                 # EN: Extract request details | FR: Extraction détails requête
                 date_str = re.search(date_pattern, line).group(1)
+                log_date = datetime.strptime(date_str, '%d/%b/%Y:%H:%M:%S %z')
+                utc_time = log_date.astimezone(pytz.utc)  # En: UTC conversion | FR: Conversion en UTC
                 status = re.search(status_pattern, line).group(1)
                 request_match = re.search(request_pattern, line)
                 if not request_match: # EN: Skip malformed requests | FR: Ignorer requêtes incomplètes
                     continue
                 method, path = request_match.groups()
-
-                # EN: Convert log timestamp | FR: Conversion horodatage
-                log_date = datetime.strptime(date_str.split()[0], '%d/%b/%Y:%H:%M:%S')
                 
                 # EN: Update IP activity metrics | FR: Mise à jour métriques IP
                 ip_data = ip_activity[ip]
                 ip_data['count'] += 1
                 ip_data['status_codes'][status] += 1
                 ip_data['requests'][f"{method} {path}"] += 1
+                ip_data['timestamps'].append(utc_time)
                 
                 # EN: Update time boundaries | FR: Mise à jour des bornes temporelles
-                if ip_data['first_seen'] is None or log_date < ip_data['first_seen']:
-                    ip_data['first_seen'] = log_date
-                if ip_data['last_seen'] is None or log_date > ip_data['last_seen']:
-                    ip_data['last_seen'] = log_date
+                if ip_data['first_seen'] is None or utc_time < ip_data['first_seen']:
+                    ip_data['first_seen'] = utc_time
+                if ip_data['last_seen'] is None or utc_time > ip_data['last_seen']:
+                    ip_data['last_seen'] = utc_time
             
             except (AttributeError, ValueError) as e:
                 # EN: Error handling for malformed entries | FR: Gestion des entrées corrompues

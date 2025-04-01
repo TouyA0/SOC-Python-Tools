@@ -1,18 +1,20 @@
 # =================================================================
 # CORE DEPENDENCIES / DÉPENDANCES PRINCIPALES
 # =================================================================
-python-dateutil>=2.8.2     # EN: Date/time parsing utilities | FR: Utilitaires de manipulation de dates
-Jinja2>=3.1.2              # EN: HTML template engine | FR: Moteur de templates HTML
-watchdog>=3.0.0            # EN: File system monitoring | FR: Surveillance du système de fichiers
-colorama>=0.4.6            # EN: Cross-platform terminal colors | FR: Couleurs terminal multiplateforme
+python-dateutil>=2.8.2
+Jinja2>=3.1.2
+watchdog>=3.0.0
+colorama>=0.4.6
+requests>=2.31.0
+pytz>=2023.3
 
 # =================================================================
 # COMPATIBILITY / COMPATIBILITÉ
 # =================================================================
-ipaddress>=1.0.23; python_version < "3.3"  # EN: Backport of Python 3.3+ ipaddress | FR: Rétroportage du module ipaddress
-setuptools>=68.0.0         # EN: Package building and dependencies | FR: Construction de paquets et gestion des dépendances
+ipaddress>=1.0.23; python_version < "3.3"
+setuptools>=68.0.0
 
 # =================================================================
 # LEGACY SUPPORT / SUPPORT ANCIENNES VERSIONS
 # =================================================================
-argparse>=1.4.0; python_version < "3.2"    # EN: CLI parsing for Python <3.2 | FR: Analyse d'arguments pour Python <3.2
+argparse>=1.4.0; python_version < "3.2"
