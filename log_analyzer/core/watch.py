@@ -174,7 +174,7 @@ def watch_log_file(config: Dict):
     )
     
     print(colorize("\n👀 Starting real-time monitoring...", Colors.BLUE))
-    print("Press Ctrl+C to stop\n")
+    print("   Press Ctrl+C to stop\n", Colors.GRAY)
     
     try:
         observer.start()
